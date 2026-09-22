@@ -5,6 +5,15 @@
 
 const path = require("path")
 const fs = require("fs")
+const nodemailer = require("nodemailer")
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.SMTP_LOGIN,
+    pass: process.env.SMTP_PASSW
+  }
+})
 
 // Require the fastify framework and instantiate it
 const fastify = require("fastify")({
@@ -60,6 +69,37 @@ fastify.post("/api/someHook", function(req, rep){
     "msg": "We got your message, thanks!"
   })
 })
+
+
+
+
+fastify.post("/send-email", async (request, reply) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: "tom.collins@miami.edu",
+      subject: "Test email",
+      text: "Hello Tom,\n\nThis is a boilerplate email automatically sent by the server.\n\nBest,\nThe server"
+    })
+
+    return {
+      success: true,
+      message: "Email sent successfully"
+    }
+  } catch (error) {
+    console.error(error)
+
+    return reply.code(500).send({
+      success: false,
+      message: "Failed to send email"
+    })
+  }
+})
+
+
+
+
+
 
 // Run the server and report out to the logs.
 const PORT = process.env.PORT || 3000;
