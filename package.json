@@ -1,0 +1,26 @@
+{
+  "name": "mue550-650-proj1",
+  "version": "0.0.1",
+  "description": "A simple app that delivers a page to the client.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@fastify/static": "^10.1.3",
+    "@fastify/view": "^12.0.0",
+    "fastify": "^5.12.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomthecollins/mue550-650-proj1.git"
+  },
+  "license": "AGPL-3.0-or-later",
+  "keywords": [
+    "node",
+    "server"
+  ]
+}
