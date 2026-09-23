@@ -10,7 +10,10 @@ if (btn) {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
-        }
+        },
+        // For a POST not to throw a 400 error, we need to pretend there's a
+        // body for the request, so here I'm just sending the empty object.
+        body: JSON.stringify({})
       })
 
       const result = await response.json()
