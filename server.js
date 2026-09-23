@@ -9,9 +9,7 @@ const fs = require("fs")
 const nodemailer = require("nodemailer")
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  service: "gmail",
   auth: {
     user: process.env.SMTP_LOGIN,
     pass: process.env.SMTP_PASSW
@@ -74,31 +72,30 @@ fastify.post("/api/someHook", function(req, rep){
 })
 
 
-fastify.post("/send-email", async (request, reply) => {
+fastify.post("/send-email", function(request, reply){
   console.log("HERE!")
-  try {
-    await transporter.sendMail({
-      from: process.env.SMTP_LOGIN,
-      to: "tom.collins@miami.edu",
-      subject: "Test email",
-      text: "Hello Tom,\n\nThis is a boilerplate email automatically sent by the server.\n\nBest,\nThe server"
-    })
 
-    console.log("HERE NOW!")
+  const mailOptions = {
+    from: process.env.SMTP_LOGIN,
+    to: "tom.collins@miami.edu",
+    subject: "Test email",
+    text: "Hello Tom,\n\nThis is a boilerplate email automatically sent by the server.\n\nBest,\nThe server"
+  }
 
-
-    return {
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+      console.log(error)
+      return reply.code(500).send({
+        success: false,
+        message: "Failed to send email"
+      })
+    }
+    console.log('Message sent: ' + info.response)
+    return reply.code(200).send({
       success: true,
       message: "Email sent successfully"
-    }
-  } catch (error) {
-    console.error(error)
-
-    return reply.code(500).send({
-      success: false,
-      message: "Failed to send email"
     })
-  }
+  })
 })
 
 
