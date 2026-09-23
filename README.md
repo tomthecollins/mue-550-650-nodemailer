@@ -1,1 +1,1 @@
-# mue550-650-proj1
+# mue550-650-nodemailer
