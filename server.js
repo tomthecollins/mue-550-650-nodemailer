@@ -4,6 +4,7 @@
 */
 
 // require('dotenv').config()
+console.log("process.env.SMTP_LOGIN:", process.env.SMTP_LOGIN)
 const path = require("path")
 const fs = require("fs")
 const nodemailer = require("nodemailer")
