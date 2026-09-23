@@ -71,12 +71,10 @@ fastify.post("/api/someHook", function(req, rep){
 })
 
 
-
-
 fastify.post("/send-email", async (request, reply) => {
   try {
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: process.env.SMTP_LOGIN,
       to: "tom.collins@miami.edu",
       subject: "Test email",
       text: "Hello Tom,\n\nThis is a boilerplate email automatically sent by the server.\n\nBest,\nThe server"
