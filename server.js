@@ -73,6 +73,7 @@ fastify.post("/api/someHook", function(req, rep){
 
 
 fastify.post("/send-email", async (request, reply) => {
+  console.log("HERE!")
   try {
     await transporter.sendMail({
       from: process.env.SMTP_LOGIN,
@@ -80,6 +81,9 @@ fastify.post("/send-email", async (request, reply) => {
       subject: "Test email",
       text: "Hello Tom,\n\nThis is a boilerplate email automatically sent by the server.\n\nBest,\nThe server"
     })
+
+    console.log("HERE NOW!")
+
 
     return {
       success: true,
