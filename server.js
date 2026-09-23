@@ -3,6 +3,7 @@
 * This is the main Node.js server script for your project
 */
 
+require('dotenv').config()
 const path = require("path")
 const fs = require("fs")
 const nodemailer = require("nodemailer")
